@@ -9,6 +9,7 @@ in the Deep-Go project by Isaac Henrion and Amos Storkey
 at the University of Edinburgh.
 """
 import traceback
+from turtle import color
 import numpy as np
 import re
 from sys import stdin, stdout, stderr
@@ -286,7 +287,18 @@ class GtpConnection:
 
     def gogui_rules_legal_moves_cmd(self, args):
         """ Implement this function for Assignment 1 """
-        self.respond()
+        legal_moves: List[str] = []
+        "Check for an ended game first"
+
+        "Uses the same method as the regular legal moves command but egenerate_legal_moves returns a list according to NoGo"
+        board_color: str = args[0].lower()
+        color: GO_COLOR = color_to_int(board_color)
+        moves: List[GO_POINT] = GoBoardUtil.generate_legal_moves(self.board, color)
+        for move in moves:
+            coords: Tuple[int, int] = point_to_coord(move, self.board.size)
+            legal_moves.append(format_point(coords))
+        sorted_moves = " ".join(sorted(legal_moves))
+        self.respond(sorted_moves)
         return
 
     def play_cmd(self, args: List[str]) -> None:
