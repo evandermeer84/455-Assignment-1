@@ -26,7 +26,7 @@ from board_base import (
     EMPTY,
     BORDER,
     MAXSIZE,
-    NO_POINT,  ## updated by removing pass from this list 
+    NO_POINT,  ## updated by removing pass from this list
     GO_COLOR,
     GO_POINT,
 )
@@ -56,7 +56,6 @@ class GoBoard(object):
         self.size: int = size
         self.NS: int = size + 1
         self.WE: int = 1
-        self.ko_recapture: GO_POINT = NO_POINT
         self.last_move: GO_POINT = NO_POINT
         self.last2_move: GO_POINT = NO_POINT
         self.current_player: GO_COLOR = BLACK
@@ -68,7 +67,6 @@ class GoBoard(object):
         b = GoBoard(self.size)
         assert b.NS == self.NS
         assert b.WE == self.WE
-        b.ko_recapture = self.ko_recapture
         b.last_move = self.last_move
         b.last2_move = self.last2_move
         b.current_player = self.current_player
@@ -91,13 +89,11 @@ class GoBoard(object):
         complicated cases such as suicide.
         """
         assert is_black_white(color)
-        # Could just return False for out-of-bounds, 
+        # Could just return False for out-of-bounds,
         # but it is better to know if this is called with an illegal point
         assert self.pt(1, 1) <= point <= self.pt(self.size, self.size)
         assert is_black_white_empty(self.board[point])
         if self.board[point] != EMPTY:
-            return False
-        if point == self.ko_recapture:
             return False
         return True
 
@@ -112,8 +108,11 @@ class GoBoard(object):
         return can_play_move
 
     def end_of_game(self) -> bool:
-        pass ## need to run the generate legal moves function and then if it is an empty list then the game is over 
-           
+        if not GoBoardUtil.generate_legal_moves(BLACK)
+        || not GoBoardUtil.generate_legal_moves(WHITE):
+            return True
+        return False
+
     def get_empty_points(self) -> np.ndarray:
         """
         Return:
@@ -180,7 +179,7 @@ class GoBoard(object):
         """
         Find the block of given stone
         Returns a board of boolean markers which are set for
-        all the points in the block 
+        all the points in the block
         """
         color: GO_COLOR = self.get_color(stone)
         assert is_black_white(color)
@@ -207,7 +206,7 @@ class GoBoard(object):
     def _detect_and_process_capture(self, nb_point: GO_POINT) -> GO_POINT:
         """
         Check whether opponent block on nb_point is captured.
-        If yes, remove the stones.
+        If yes, remove the stones.  # Do not remove the stones
         Returns the stone if only a single stone was captured,
         and returns NO_POINT otherwise.
         This result is used in play_move to check for possible ko
@@ -231,25 +230,19 @@ class GoBoard(object):
 
         # General case: deal with captures, suicide, and next ko point
         opp_color = opponent(color)
-        in_enemy_eye = self._is_surrounded(point, opp_color)
+
         self.board[point] = color
-        single_captures = []
-        neighbors = self._neighbors(point)
-        for nb in neighbors:
-            if self.board[nb] == opp_color:
-                single_capture = self._detect_and_process_capture(nb)
-                if single_capture != NO_POINT:
-                    single_captures.append(single_capture)
+
         block = self._block_of(point)
+
         if not self._has_liberty(block):  # undo suicide move
             self.board[point] = EMPTY
             return False
-        self.ko_recapture = NO_POINT
-        if in_enemy_eye and len(single_captures) == 1:
-            self.ko_recapture = single_captures[0]
+
         self.current_player = opponent(color)
         self.last2_move = self.last_move
         self.last_move = point
+
         return True
 
     def neighbors_of_color(self, point: GO_POINT, color: GO_COLOR) -> List:
