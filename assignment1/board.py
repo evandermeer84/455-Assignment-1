@@ -228,13 +228,6 @@ class GoBoard(object):
         """
         if not self._is_legal_check_simple_cases(point, color):
             return False
-        # Special cases
-        if point == PASS:
-            self.ko_recapture = NO_POINT
-            self.current_player = opponent(color)
-            self.last2_move = self.last_move
-            self.last_move = point
-            return True
 
         # General case: deal with captures, suicide, and next ko point
         opp_color = opponent(color)
