@@ -26,8 +26,7 @@ from board_base import (
     EMPTY,
     BORDER,
     MAXSIZE,
-    NO_POINT,
-    PASS,
+    NO_POINT,  ## updated by removing pass from this list 
     GO_COLOR,
     GO_POINT,
 )
@@ -92,8 +91,6 @@ class GoBoard(object):
         complicated cases such as suicide.
         """
         assert is_black_white(color)
-        if point == PASS:
-            return True
         # Could just return False for out-of-bounds, 
         # but it is better to know if this is called with an illegal point
         assert self.pt(1, 1) <= point <= self.pt(self.size, self.size)
@@ -110,15 +107,12 @@ class GoBoard(object):
         This method tries to play the move on a temporary copy of the board.
         This prevents the board from being modified by the move
         """
-        if point == PASS:
-            return True
         board_copy: GoBoard = self.copy()
         can_play_move = board_copy.play_move(point, color)
         return can_play_move
 
     def end_of_game(self) -> bool:
-        return self.last_move == PASS \
-           and self.last2_move == PASS
+        pass ## need to run the generate legal moves function and then if it is an empty list then the game is over 
            
     def get_empty_points(self) -> np.ndarray:
         """
@@ -142,7 +136,7 @@ class GoBoard(object):
         for row in range(1, self.size + 1):
             start: int = self.row_start(row)
             board_array[start : start + self.size] = EMPTY
-
+    '''
     def is_eye(self, point: GO_POINT, color: GO_COLOR) -> bool:
         """
         Check if point is a simple eye for color
@@ -159,7 +153,7 @@ class GoBoard(object):
             elif self.board[d] == opp_color:
                 false_count += 1
         return false_count <= 1 - at_edge  # 0 at edge, 1 in center
-
+    '''
     def _is_surrounded(self, point: GO_POINT, color: GO_COLOR) -> bool:
         """
         check whether empty point is surrounded by stones of color
