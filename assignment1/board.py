@@ -13,6 +13,7 @@ The board uses a 1-dimensional representation with padding
 
 import numpy as np
 from typing import List, Tuple
+from board_util import GoBoardUtil
 
 from board_base import (
     board_array_size,
@@ -27,7 +28,7 @@ from board_base import (
     BORDER,
     MAXSIZE,
     PASS,
-    NO_POINT,  ## updated by removing pass from this list 
+    NO_POINT,  ## updated by removing pass from this list
     GO_COLOR,
     GO_POINT,
 )
@@ -94,7 +95,7 @@ class GoBoard(object):
         assert is_black_white(color)
         if point == PASS:
             return False
-        # Could just return False for out-of-bounds, 
+        # Could just return False for out-of-bounds,
         # but it is better to know if this is called with an illegal point
         assert self.pt(1, 1) <= point <= self.pt(self.size, self.size)
         assert is_black_white_empty(self.board[point])
@@ -115,10 +116,10 @@ class GoBoard(object):
         return can_play_move
 
     def end_of_game(self) -> bool:
-        '''if not GoBoardUtil.generate_legal_moves(BLACK)
-        || not GoBoardUtil.generate_legal_moves(WHITE):
+        if not GoBoardUtil.generate_legal_moves(BLACK) \
+        or not GoBoardUtil.generate_legal_moves(WHITE):
             return True
-        return False'''
+        return False
 
     def get_empty_points(self) -> np.ndarray:
         """
@@ -142,24 +143,27 @@ class GoBoard(object):
         for row in range(1, self.size + 1):
             start: int = self.row_start(row)
             board_array[start : start + self.size] = EMPTY
-    
+
     def is_eye(self, point: GO_POINT, color: GO_COLOR) -> bool:
         """
         Check if point is a simple eye for color
         """
         if not self._is_surrounded(point, color):
             return False
+
         # Eye-like shape. Check diagonals to detect false eye
         opp_color = opponent(color)
         false_count = 0
         at_edge = 0
+
         for d in self._diag_neighbors(point):
             if self.board[d] == BORDER:
                 at_edge = 1
             elif self.board[d] == opp_color:
                 false_count += 1
+
         return false_count <= 1 - at_edge  # 0 at edge, 1 in center
-    
+
     def _is_surrounded(self, point: GO_POINT, color: GO_COLOR) -> bool:
         """
         check whether empty point is surrounded by stones of color
@@ -234,8 +238,8 @@ class GoBoard(object):
         """
         if not self._is_legal_check_simple_cases(point, color):
             return False
-        
-        
+
+
         # Special cases
         if point == PASS:
             return False
@@ -245,7 +249,7 @@ class GoBoard(object):
             self.last2_move = self.last_move
             self.last_move = point
             return True'''
-        
+
 
         # General case: deal with captures, suicide, and next ko point
         opp_color = opponent(color)

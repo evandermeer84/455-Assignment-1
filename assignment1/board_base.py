@@ -36,15 +36,14 @@ GO_POINT = np.int32
 """
 Encoding of special pass move
 """
-PASS: GO_POINT = GO_POINT(-2)  ## Removing the pass move since passing is illegal 
-
+PASS: GO_POINT = GO_POINT(-2)  ## Removing the pass move since passing is illegal
 """
 Encoding of "not a real point", used as a marker
 """
 NO_POINT: GO_POINT = GO_POINT(-1)
 
 """
-The largest board we allow. 
+The largest board we allow.
 To support larger boards the coordinate printing in
 GtpConnection.format_point needs to be changed.
 """
@@ -52,7 +51,7 @@ MAXSIZE: int = 25
 DEFAULT_SIZE: int = 7
 
 """
-The number of array elements in a "padded 1D" representation 
+The number of array elements in a "padded 1D" representation
 of a size x size board.
 See the documentation under coord_to_point.
 """
@@ -61,7 +60,7 @@ def board_array_size(size: int) -> int:
 
 """
 where1d: Helper function for using np.where with 1-d arrays.
-The result of np.where is a tuple which contains the indices 
+The result of np.where is a tuple which contains the indices
 of elements that fulfill the condition.
 For 1-d arrays, this is of type Tuple[ndarray].
 The [0] indexing is needed to extract the ndarray result from the singleton tuple.
@@ -78,13 +77,13 @@ def coord_to_point(row: int, col: int, board_size: int) -> GO_POINT:
     row, col:
              coordinates of the point, 1-based
              1 <= row, col <= board_size
-    
+
     Map (row, col) coordinates to array index
     Below is an example of numbering points on a 3x3 board.
-    Spaces are added for illustration to separate board points 
+    Spaces are added for illustration to separate board points
     from BORDER points.
     There is a one point BORDER between consecutive rows (e.g. point 12).
-    
+
     16   17 18 19   20
 
     12   13 14 15
