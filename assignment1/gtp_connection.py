@@ -289,6 +289,9 @@ class GtpConnection:
         """ Implement this function for Assignment 1 """
         legal_moves: List[str] = []
         "Check for an ended game first"
+        if self.board.end_of_game:
+            self.respond(legal_moves)
+            return 
 
         "Uses the same method as the regular legal moves command but egenerate_legal_moves returns a list according to NoGo"
         board_color: str = args[0].lower()
