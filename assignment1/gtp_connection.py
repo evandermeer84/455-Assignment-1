@@ -295,7 +295,7 @@ class GtpConnection:
         """ Implement this function for Assignment 1 """
 
         "Check for an ended game first"
-        if self.board.end_of_game:
+        if not self.board.end_of_game:
             self.respond()
             return
             
