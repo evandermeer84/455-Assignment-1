@@ -287,20 +287,17 @@ class GtpConnection:
 
     def gogui_rules_legal_moves_cmd(self, args):
         """ Implement this function for Assignment 1 """
-        legal_moves: List[str] = []
+   
         "Check for an ended game first"
-        if self.board.end_of_game:
-            self.respond(legal_moves)
-            return 
 
         "Uses the same method as the regular legal moves command but egenerate_legal_moves returns a list according to NoGo"
-        board_color: str = args[0].lower()
-        color: GO_COLOR = color_to_int(board_color)
+        color: GO_COLOR = self.board.current_player
         moves: List[GO_POINT] = GoBoardUtil.generate_legal_moves(self.board, color)
+        gtp_moves: List[str] = []
         for move in moves:
             coords: Tuple[int, int] = point_to_coord(move, self.board.size)
-            legal_moves.append(format_point(coords))
-        sorted_moves = " ".join(sorted(legal_moves))
+            gtp_moves.append(format_point(coords))
+        sorted_moves = " ".join(sorted(gtp_moves))
         self.respond(sorted_moves)
         return
 
