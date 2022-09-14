@@ -13,7 +13,6 @@ The board uses a 1-dimensional representation with padding
 
 import numpy as np
 from typing import List, Tuple
-#from board_util import GoBoardUtil
 
 from board_base import (
     board_array_size,
@@ -116,10 +115,20 @@ class GoBoard(object):
         return can_play_move
 
     def end_of_game(self) -> bool:
-        """if not GoBoardUtil.generate_legal_moves(BLACK) \
-        or not GoBoardUtil.generate_legal_moves(WHITE):
-            return True"""
-        return False
+        def gen_moves(color: GO_COLOR) -> List:
+            """
+            Reimplementation of function in board_util to bypass circular import
+            """
+            moves: np.ndarray[GO_POINT] = self.get_empty_points()
+
+            legal_moves: List[GO_POINT] = []
+            for move in moves:
+                if self.is_legal(move, color):
+                    legal_moves.append(move)
+
+            return legal_moves
+
+        return gen_moves(BLACK) and gen_moves(WHITE)
 
     def get_empty_points(self) -> np.ndarray:
         """

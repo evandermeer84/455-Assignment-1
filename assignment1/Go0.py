@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Set the path to your python3 above
 
 """
@@ -23,7 +23,7 @@ class Go0(GoEngine):
         GoEngine.__init__(self, "Go0", 1.0)
 
     def get_move(self, board: GoBoard, color: GO_COLOR) -> GO_POINT:
-        return GoBoardUtil.generate_random_move(board, color, 
+        return GoBoardUtil.generate_random_move(board, color,
                                                 use_eye_filter=False)
 
 
