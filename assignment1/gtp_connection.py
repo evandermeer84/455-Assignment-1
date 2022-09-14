@@ -287,9 +287,9 @@ class GtpConnection:
             self.respond("unknown")
         else:
             if self.board.current_player == BLACK:
-                self.respond("black")
-            else:
                 self.respond("white")
+            else:
+                self.respond("black")
 
     def gogui_rules_legal_moves_cmd(self, args):
         """ Implement this function for Assignment 1 """
@@ -319,12 +319,27 @@ class GtpConnection:
             board_move = args[1]
             color = color_to_int(board_color)
 
+            # Error checking 
+
+            # Check for player
+            if color != self.board.current_player:
+                self.respond("Illegal Move: {} wrong color".format(board_color))
+                return
+            # Check for pass
             if args[1].lower() == "pass":
                 self.respond("Illegal Move: wrong coordinate")
                 return
 
             coord = move_to_coord(args[1], self.board.size)
             move = coord_to_point(coord[0], coord[1], self.board.size)
+
+            # Check for occuupied
+
+            # Check for capture
+
+            # Check for suicide
+
+
             if not self.board.play_move(move, color):
                 self.respond("Illegal Move: {}".format(board_move))
                 return
@@ -338,6 +353,10 @@ class GtpConnection:
 
     def genmove_cmd(self, args: List[str]) -> None:
         """ generate a move for color args[0] in {'b','w'} """
+        if self.board.end_of_game:
+            self.respond("resign")
+            return 
+
         board_color = args[0].lower()
         color = color_to_int(board_color)
         move = self.go_engine.get_move(self.board, color)
