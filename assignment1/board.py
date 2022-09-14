@@ -57,7 +57,7 @@ class GoBoard(object):
         self.size: int = size
         self.NS: int = size + 1
         self.WE: int = 1
-        self.ko_recapture: GO_POINT = NO_POINT
+        #self.ko_recapture: GO_POINT = NO_POINT
         self.last_move: GO_POINT = NO_POINT
         self.last2_move: GO_POINT = NO_POINT
         self.current_player: GO_COLOR = BLACK
@@ -69,7 +69,7 @@ class GoBoard(object):
         b = GoBoard(self.size)
         assert b.NS == self.NS
         assert b.WE == self.WE
-        b.ko_recapture = self.ko_recapture
+        #b.ko_recapture = self.ko_recapture
         b.last_move = self.last_move
         b.last2_move = self.last2_move
         b.current_player = self.current_player
@@ -93,15 +93,15 @@ class GoBoard(object):
         """
         assert is_black_white(color)
         if point == PASS:
-            return True
+            return False
         # Could just return False for out-of-bounds, 
         # but it is better to know if this is called with an illegal point
         assert self.pt(1, 1) <= point <= self.pt(self.size, self.size)
         assert is_black_white_empty(self.board[point])
         if self.board[point] != EMPTY:
             return False
-        if point == self.ko_recapture:
-            return False
+        '''if point == self.ko_recapture:
+            return False'''
         return True
 
     def is_legal(self, point: GO_POINT, color: GO_COLOR) -> bool:
@@ -111,16 +111,18 @@ class GoBoard(object):
         This prevents the board from being modified by the move
         """
         if point == PASS:
-            return True
+            return False
         board_copy: GoBoard = self.copy()
         can_play_move = board_copy.play_move(point, color)
         return can_play_move
 
     def end_of_game(self) -> bool:
+        pass
+        """
         if not GoBoardUtil.generate_legal_moves(BLACK)
         || not GoBoardUtil.generate_legal_moves(WHITE):
             return True
-        return False
+        return False"""
         
     def get_empty_points(self) -> np.ndarray:
         """
@@ -251,7 +253,7 @@ class GoBoard(object):
 
         # General case: deal with captures, suicide, and next ko point
         opp_color = opponent(color)
-        in_enemy_eye = self._is_surrounded(point, opp_color)
+        #in_enemy_eye = self._is_surrounded(point, opp_color)
         self.board[point] = color
         single_captures = []
         neighbors = self._neighbors(point)
@@ -265,8 +267,8 @@ class GoBoard(object):
             self.board[point] = EMPTY
             return False
         self.ko_recapture = NO_POINT
-        if in_enemy_eye and len(single_captures) == 1:
-            self.ko_recapture = single_captures[0]
+        '''if in_enemy_eye and len(single_captures) == 1:
+            self.ko_recapture = single_captures[0]'''
         self.current_player = opponent(color)
         self.last2_move = self.last_move
         self.last_move = point
