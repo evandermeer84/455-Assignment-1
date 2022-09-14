@@ -24,16 +24,16 @@ class GoBoardUtil(object):
             the color to generate the move for.
         """
         moves: np.ndarray[GO_POINT] = board.get_empty_points()
-        # TODO use generator instead.
+
         legal_moves: List[GO_POINT] = []
-        # TODO use generator instead.
         for move in moves:
             if board.is_legal(move, color):
                 legal_moves.append(move)
+
         return legal_moves
 
     @staticmethod
-    def generate_random_move(board: GoBoard, color: GO_COLOR, 
+    def generate_random_move(board: GoBoard, color: GO_COLOR,
                              use_eye_filter: bool) -> GO_POINT:
         """
         Generate a random move.
