@@ -283,7 +283,13 @@ class GtpConnection:
     """
     def gogui_rules_final_result_cmd(self, args):
         """ Implement this function for Assignment 1 """
-        self.respond("unknown")
+        if not self.board.end_of_game:
+            self.respond("unknown")
+        else:
+            if self.board.current_player == BLACK:
+                self.respond("black")
+            else:
+                self.respond("white")
 
     def gogui_rules_legal_moves_cmd(self, args):
         """ Implement this function for Assignment 1 """
@@ -314,7 +320,7 @@ class GtpConnection:
             color = color_to_int(board_color)
 
             if args[1].lower() == "pass":
-                self.respond("Illegal Move: PASS")
+                self.respond("Illegal Move: wrong coordinate")
                 return
 
             coord = move_to_coord(args[1], self.board.size)
