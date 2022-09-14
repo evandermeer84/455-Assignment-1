@@ -4,8 +4,8 @@ Module for playing games of Go using GoTextProtocol
 
 Cmput 455 sample code
 Written by Cmput 455 TA and Martin Mueller.
-Parts of this code were originally based on the gtp module 
-in the Deep-Go project by Isaac Henrion and Amos Storkey 
+Parts of this code were originally based on the gtp module
+in the Deep-Go project by Isaac Henrion and Amos Storkey
 at the University of Edinburgh.
 """
 import traceback
@@ -39,7 +39,7 @@ class GtpConnection:
         ----------
         go_engine:
             a program that can reply to a set of GTP commandsbelow
-        board: 
+        board:
             Represents the current board state.
         """
         self._debug_mode: bool = debug_mode
@@ -83,7 +83,7 @@ class GtpConnection:
 
     def start_connection(self) -> None:
         """
-        Start a GTP connection. 
+        Start a GTP connection.
         This function continuously monitors standard input for commands.
         """
         line = stdin.readline()
@@ -287,7 +287,7 @@ class GtpConnection:
 
     def gogui_rules_legal_moves_cmd(self, args):
         """ Implement this function for Assignment 1 """
-   
+
         "Check for an ended game first"
 
         "Uses the same method as the regular legal moves command but egenerate_legal_moves returns a list according to NoGo"
@@ -348,7 +348,7 @@ class GtpConnection:
 
 def point_to_coord(point: GO_POINT, boardsize: int) -> Tuple[int, int]:
     """
-    Transform point given as board array index 
+    Transform point given as board array index
     to (row, col) coordinate representation.
     Special case: PASS is transformed to (PASS,PASS)
     """
