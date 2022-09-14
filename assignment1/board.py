@@ -13,7 +13,7 @@ The board uses a 1-dimensional representation with padding
 
 import numpy as np
 from typing import List, Tuple
-from board_util import GoBoardUtil
+#from board_util import GoBoardUtil
 
 from board_base import (
     board_array_size,
@@ -116,9 +116,9 @@ class GoBoard(object):
         return can_play_move
 
     def end_of_game(self) -> bool:
-        if not GoBoardUtil.generate_legal_moves(BLACK) \
+        """if not GoBoardUtil.generate_legal_moves(BLACK) \
         or not GoBoardUtil.generate_legal_moves(WHITE):
-            return True
+            return True"""
         return False
 
     def get_empty_points(self) -> np.ndarray:
@@ -257,6 +257,8 @@ class GoBoard(object):
         self.board[point] = color
 
         block = self._block_of(point)
+
+        # Detect captures here and make sure it returns false 
 
         if not self._has_liberty(block):  # undo suicide move
             self.board[point] = EMPTY
