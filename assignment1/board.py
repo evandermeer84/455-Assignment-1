@@ -223,7 +223,7 @@ class GoBoard(object):
                     pointstack.append(nb)
         return marker
 
-    def _detect_and_process_capture(self, nb_point: GO_POINT) -> GO_POINT:
+    def _detect_and_process_capture(self, nb_point: GO_POINT) -> bool:
         """
         Check whether opponent block on nb_point is captured.
         If yes, remove the stones.  # Do not remove the stones
@@ -231,14 +231,15 @@ class GoBoard(object):
         and returns NO_POINT otherwise.
         This result is used in play_move to check for possible ko
         """
-        single_capture: GO_POINT = NO_POINT
+        #single_capture: GO_POINT = NO_POINT
         opp_block = self._block_of(nb_point)
         if not self._has_liberty(opp_block):
-            captures = list(where1d(opp_block))
+            return True
+            """captures = list(where1d(opp_block))
             self.board[captures] = EMPTY
             if len(captures) == 1:
-                single_capture = nb_point
-        return single_capture
+                single_capture = nb_point"""
+        return False
 
     def play_move(self, point: GO_POINT, color: GO_COLOR) -> bool:
         """
@@ -264,6 +265,13 @@ class GoBoard(object):
         opp_color = opponent(color)
         #in_enemy_eye = self._is_surrounded(point, opp_color)
         self.board[point] = color
+        neighbors = self._neighbors(point)
+        for nb in neighbors:
+            if self.board[nb] == opp_color:
+                captures = self._detect_and_process_capture(nb) # detect if a capture would be made
+                if captures: # a capture would be made
+                    self.board[point] = EMPTY # undo the move
+                    return False
 
         block = self._block_of(point)
 
