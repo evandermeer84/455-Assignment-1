@@ -36,7 +36,7 @@ GO_POINT = np.int32
 """
 Encoding of special pass move
 """
-#PASS: GO_POINT = GO_POINT(-2)  ## Removing the pass move since passing is illegal 
+PASS: GO_POINT = GO_POINT(-2)  ## Removing the pass move since passing is illegal 
 
 """
 Encoding of "not a real point", used as a marker
