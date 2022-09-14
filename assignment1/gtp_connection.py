@@ -289,8 +289,11 @@ class GtpConnection:
         """ Implement this function for Assignment 1 """
    
         "Check for an ended game first"
-
-        "Uses the same method as the regular legal moves command but egenerate_legal_moves returns a list according to NoGo"
+        if self.board.end_of_game:
+            self.respond()
+            return
+            
+        "Uses the same method as the regular legal moves command but generate_legal_moves returns a list according to NoGo"
         color: GO_COLOR = self.board.current_player
         moves: List[GO_POINT] = GoBoardUtil.generate_legal_moves(self.board, color)
         gtp_moves: List[str] = []
@@ -309,11 +312,11 @@ class GtpConnection:
             board_color = args[0].lower()
             board_move = args[1]
             color = color_to_int(board_color)
+
             if args[1].lower() == "pass":
-                self.board.play_move(PASS, color)
-                self.board.current_player = opponent(color)
-                self.respond()
+                self.respond("Illegal Move: PASS")
                 return
+
             coord = move_to_coord(args[1], self.board.size)
             move = coord_to_point(coord[0], coord[1], self.board.size)
             if not self.board.play_move(move, color):
