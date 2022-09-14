@@ -353,7 +353,7 @@ class GtpConnection:
 
     def genmove_cmd(self, args: List[str]) -> None:
         """ generate a move for color args[0] in {'b','w'} """
-        if self.board.end_of_game:
+        if not self.board.end_of_game:
             self.respond("resign")
             return 
 
