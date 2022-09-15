@@ -9,7 +9,7 @@ in the Deep-Go project by Isaac Henrion and Amos Storkey
 at the University of Edinburgh.
 """
 import traceback
-from turtle import color
+#from turtle import color
 import numpy as np
 import re
 from sys import stdin, stdout, stderr
@@ -296,8 +296,7 @@ class GtpConnection:
 
         "Check for an ended game first"
         if not self.board.end_of_game():
-            self.respond()
-            return
+            self.respond("resign")
 
         "Uses the same method as the regular legal moves command but generate_legal_moves returns a list according to NoGo"
         color: GO_COLOR = self.board.current_player
