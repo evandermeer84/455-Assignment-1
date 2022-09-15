@@ -324,7 +324,7 @@ class GtpConnection:
 
             # Check for player
             if color != self.board.current_player:
-                self.respond("Illegal Move: {} wrong color".format(board_color))
+                self.respond("illegal move: {} wrong color".format(board_color))
                 return
             # Check for pass
             if args[1].lower() == "pass":
@@ -337,10 +337,10 @@ class GtpConnection:
             # Check for occuupied
             # This checks to see if the move is not in the list of the boards empty points
             if move not in self.board.get_empty_points():
-                self.respond("Illegal Move: {} occupied", format(board_move))
+                self.respond("illegal move: {} occupied".format(board_move))
                 return
 
-            # Check for capture   ## This is not working for some reason, but it works in the board function not sure what is up
+            # Check for capture
             self.board.board[move] = color
             neighbors = self.board._neighbors(move)
             print(f"Neighbors for {move} = {neighbors}", file=sys.stderr)
@@ -350,24 +350,21 @@ class GtpConnection:
                     is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
                     if is_capture:
                         print("Got capture!!!", file=sys.stderr);
-                        self.respond("illegal move: {} capture", format(board_move))
+                        self.respond("illegal move: {} capture".format(board_move))
                         self.board.board[move] = EMPTY
                         return
 
             self.board.board[move] = EMPTY
 
-            if not self.board._is_legal_check_simple_cases(move, color):
-                print("Got to fallthrough", file=sys.stderr);
-
             # Check for suicide
             # get the opponenet color to compare
             if self.board._is_surrounded(move, opponent_color):
-                self.respond("illegal move: {} suicide", format(board_move))
+                self.respond("illegal move: {} suicide".format(board_move))
                 return
 
             if not self.board.play_move(move, color):
                 print(f"Still an illegal move = {move}?", file=sys.stderr)
-                self.respond("Illegal Move: {}".format(board_move))   # Catching the capture move here right now
+                self.respond("illegal move: {}".format(board_move))   # Catching the capture move here right now
                 return
             else:
                 self.debug_msg(
@@ -392,7 +389,7 @@ class GtpConnection:
             self.board.play_move(move, color)
             self.respond(move_as_string)
         else:
-            self.respond("Illegal move: {}".format(move_as_string))
+            self.respond("illegal move: {}".format(move_as_string))
 
     """
     ==========================================================================
