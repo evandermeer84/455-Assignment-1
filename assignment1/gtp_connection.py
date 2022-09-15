@@ -283,7 +283,7 @@ class GtpConnection:
     """
     def gogui_rules_final_result_cmd(self, args):
         """ Implement this function for Assignment 1 """
-        if not self.board.end_of_game():
+        if self.board.end_of_game():
             self.respond("unknown")
         else:
             if self.board.current_player == BLACK:
