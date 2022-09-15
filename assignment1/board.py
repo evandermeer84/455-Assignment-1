@@ -239,19 +239,8 @@ class GoBoard(object):
         Play a move of color on point
         Returns whether move was legal
         """
-        if not self._is_legal_check_simple_cases(point, color):
+        if not self._is_legal_check_simple_cases(point, color) or point == PASS:
             return False
-
-
-        # Special cases
-        if point == PASS:
-            return False
-            '''
-            self.ko_recapture = NO_POINT
-            self.current_player = opponent(color)
-            self.last2_move = self.last_move
-            self.last_move = point
-            return True'''
 
         # General case: deal with captures, suicide, and next ko point
         opp_color = opponent(color)
@@ -270,7 +259,6 @@ class GoBoard(object):
         block = self._block_of(point)
 
         # Detect captures here and make sure it returns false
-
         if not self._has_liberty(block):  # undo suicide move
             self.board[point] = EMPTY
             return False

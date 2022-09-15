@@ -14,6 +14,7 @@ import numpy as np
 import re
 from sys import stdin, stdout, stderr
 from typing import Any, Callable, Dict, List, Tuple
+import sys
 
 from board_base import (
     BLACK,
@@ -334,33 +335,39 @@ class GtpConnection:
             move = coord_to_point(coord[0], coord[1], self.board.size)
 
             # Check for occuupied
-            # This checks to see if the move is not in the list of the boards empty points 
+            # This checks to see if the move is not in the list of the boards empty points
             if move not in self.board.get_empty_points():
                 self.respond("Illegal Move: {} occupied", format(board_move))
                 return
 
             # Check for capture   ## This is not working for some reason, but it works in the board function not sure what is up
+            self.board.board[move] = color
             neighbors = self.board._neighbors(move)
+            print(f"Neighbors for {move} = {neighbors}", file=sys.stderr)
 
             for nb in neighbors:
                 if self.board.board[nb] == opponent_color:
                     is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
-                    if is_capture: # a capture would be made
+                    if is_capture:
+                        print("Got capture!!!", file=sys.stderr);
                         self.respond("illegal move: {} capture", format(board_move))
-                        return 
+                        self.board.board[move] = EMPTY
+                        return
 
+            self.board.board[move] = EMPTY
+
+            if not self.board._is_legal_check_simple_cases(move, color):
+                print("Got to fallthrough", file=sys.stderr);
 
             # Check for suicide
-            # get the opponenet color to compare 
-            
+            # get the opponenet color to compare
             if self.board._is_surrounded(move, opponent_color):
                 self.respond("illegal move: {} suicide", format(board_move))
                 return
 
-
-
             if not self.board.play_move(move, color):
-                self.respond("Illegal Move: {}".format(board_move))   # Catching the capture move here right now 
+                print(f"Still an illegal move = {move}?", file=sys.stderr)
+                self.respond("Illegal Move: {}".format(board_move))   # Catching the capture move here right now
                 return
             else:
                 self.debug_msg(
