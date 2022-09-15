@@ -296,7 +296,7 @@ class GtpConnection:
 
         "Check for an ended game first"
         if not self.board.end_of_game():
-            self.respond("resign")
+            self.respond("")
 
         "Uses the same method as the regular legal moves command but generate_legal_moves returns a list according to NoGo"
         color: GO_COLOR = self.board.current_player
@@ -317,6 +317,7 @@ class GtpConnection:
             board_color = args[0].lower()
             board_move = args[1]
             color = color_to_int(board_color)
+            opponent_color = opponent(color)
 
             # Error checking
 
@@ -326,21 +327,40 @@ class GtpConnection:
                 return
             # Check for pass
             if args[1].lower() == "pass":
-                self.respond("Illegal Move: wrong coordinate")
+                self.respond("illegal move: \"{} pass\" wrong coordinate".format(board_color))
                 return
 
             coord = move_to_coord(args[1], self.board.size)
             move = coord_to_point(coord[0], coord[1], self.board.size)
 
             # Check for occuupied
+            # This checks to see if the move is not in the list of the boards empty points 
+            if move not in self.board.get_empty_points():
+                self.respond("Illegal Move: {} occupied", format(board_move))
+                return
 
-            # Check for capture
+            # Check for capture   ## This is not working for some reason, but it works in the board function not sure what is up
+            neighbors = self.board._neighbors(move)
+
+            for nb in neighbors:
+                if self.board.board[nb] == opponent_color:
+                    is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
+                    if is_capture: # a capture would be made
+                        self.respond("illegal move: {} capture", format(board_move))
+                        return 
+
 
             # Check for suicide
+            # get the opponenet color to compare 
+            
+            if self.board._is_surrounded(move, opponent_color):
+                self.respond("illegal move: {} suicide", format(board_move))
+                return
+
 
 
             if not self.board.play_move(move, color):
-                self.respond("Illegal Move: {}".format(board_move))
+                self.respond("Illegal Move: {}".format(board_move))   # Catching the capture move here right now 
                 return
             else:
                 self.debug_msg(
@@ -353,7 +373,7 @@ class GtpConnection:
     def genmove_cmd(self, args: List[str]) -> None:
         """ generate a move for color args[0] in {'b','w'} """
         if not self.board.end_of_game():
-            self.respond("resign")
+            self.respond("")
             return
 
         board_color = args[0].lower()
