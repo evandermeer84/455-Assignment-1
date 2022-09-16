@@ -284,9 +284,9 @@ class GtpConnection:
     """
     def gogui_rules_final_result_cmd(self, args):
         """ Implement this function for Assignment 1 """
-        if self.board.end_of_game():
+        if self.board.end_of_game(): # game is't ended (it's backwards i know)
             self.respond("unknown")
-        else:
+        else: # game has ended
             if self.board.current_player == BLACK:
                 self.respond("white")
             else:
@@ -298,6 +298,7 @@ class GtpConnection:
         "Check for an ended game first"
         if not self.board.end_of_game():
             self.respond("")
+            return
 
         "Uses the same method as the regular legal moves command but generate_legal_moves returns a list according to NoGo"
         color: GO_COLOR = self.board.current_player
@@ -375,7 +376,7 @@ class GtpConnection:
     def genmove_cmd(self, args: List[str]) -> None:
         """ generate a move for color args[0] in {'b','w'} """
         if not self.board.end_of_game():
-            self.respond("")
+            self.respond("resign")
             return
 
         board_color = args[0].lower()
