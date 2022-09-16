@@ -343,13 +343,11 @@ class GtpConnection:
             # Check for capture
             self.board.board[move] = color
             neighbors = self.board._neighbors(move)
-            print(f"Neighbors for {move} = {neighbors}", file=sys.stderr)
-
+    
             for nb in neighbors:
                 if self.board.board[nb] == opponent_color:
                     is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
                     if is_capture:
-                        print("Got capture!!!", file=sys.stderr);
                         self.respond("illegal move: {} capture".format(board_move))
                         self.board.board[move] = EMPTY
                         return
