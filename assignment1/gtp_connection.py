@@ -349,7 +349,7 @@ class GtpConnection:
                 if self.board.board[nb] == opponent_color:
                     is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
                     if is_capture:
-                        self.respond("illegal move: {} capture".format(board_move))
+                        self.respond("illegal move: \"" + board_color + " {}\" capture".format(board_move))
                         self.board.board[move] = EMPTY
                         return
 
