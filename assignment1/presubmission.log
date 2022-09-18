@@ -1,0 +1,45 @@
+Script started on 2022-09-18 17:26:41-06:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ exit[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ ./../gogui/bin/gogui-regress assignment1/Go0.py assignment1/public-tests-nogo.gtp [A[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ tar xvfz assignment1.tgz [K
+
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ cd[15P ../test
+p assignment1.tgz ../test/assignment1.tgz
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ cp assignment1.tgz ../test/assignment1.tgz[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ exit[K[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ ./../gogui/bin/gogui-regress assignment1/Go0.py assignment1/public-tests-nogo.gtp [A[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ tar xvfz assignment1.tgz [K
+
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/455-Assignment-1[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/455-Assignment-1[00m$ cd[15P ../test
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/test[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/test[00m$ cd ../testp assignment1.tgz ../test/assignment1.tgz[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/test[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/test[00m$ exit[K
+
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./../gogui/bin/gogui-regress assignment1/Go0.py assignment1/public-tests-nogo.gtp [Atar xvfz assignment1.tgz [K
+assignment1/
+assignment1/public-tests-nogo.gtp
+assignment1/readme.txt
+assignment1/gtp_connection.py
+assignment1/board.py
+assignment1/board_util.py
+assignment1/board_base.py
+assignment1/Go0.py
+assignment1/__pycache__/
+assignment1/__pycache__/gtp_connection.cpython-38.pyc
+assignment1/__pycache__/engine.cpython-38.pyc
+assignment1/__pycache__/board_base.cpython-38.pyc
+assignment1/__pycache__/board.cpython-38.pyc
+assignment1/__pycache__/board_util.cpython-38.pyc
+assignment1/engine.py
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/test[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/test[00m$ tar xvfz assignment1.tgz [A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/test[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/test[00m$ [3Pcd ../test
+
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cp assignment1.tgz ../test/assignment1.tgz[A
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/test[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/test[00m$ exit[K
+
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./../gogui/bin/gogui-regress assignment1/Go0.py assignment1/public-tests-nogo.gtp 
+]0;emily84@emily84-ZenBook-UX331FA-UX331FA: ~/Documents/CMPUT455/test[01;32memily84@emily84-ZenBook-UX331FA-UX331FA[00m:[01;34m~/Documents/CMPUT455/test[00m$ exit
+exit
+
+Script done on 2022-09-18 17:27:13-06:00 [COMMAND_EXIT_CODE="0"]
