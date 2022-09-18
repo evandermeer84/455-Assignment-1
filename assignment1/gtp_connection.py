@@ -353,7 +353,7 @@ class GtpConnection:
                         self.board.board[move] = EMPTY
                         return
 
-            self.board.board[move] = EMPTY
+            
 
             # Check for suicide
             # get the opponenet color to compare
@@ -361,6 +361,9 @@ class GtpConnection:
                 self.respond("illegal move: {} suicide".format(board_move))
                 return
 
+
+            self.board.board[move] = EMPTY
+            
             if not self.board.play_move(move, color):
                 print(f"Still an illegal move = {move}?", file=sys.stderr)
                 self.respond("illegal move: {}".format(board_move))   # Catching the capture move here right now
