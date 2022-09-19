@@ -43,4 +43,7 @@ play w a1
 80 play b a2
 #? [illegal move: "b a2" suicide]
 
+90 play b a1
+#? [illegal move: "b a1" occupied]
+
 
