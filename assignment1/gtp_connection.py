@@ -344,7 +344,7 @@ class GtpConnection:
             # Check for capture
             self.board.board[move] = color
             neighbors = self.board._neighbors(move)
-    
+
             for nb in neighbors:
                 if self.board.board[nb] == opponent_color:
                     is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
@@ -353,20 +353,20 @@ class GtpConnection:
                         self.board.board[move] = EMPTY
                         return
 
-            
-
             # Check for suicide
             # get the opponenet color to compare
-            if self.board._is_surrounded(move, opponent_color):
+            block = self.board._block_of(move)
+
+            if not self.board._has_liberty(block):  # undo suicide move
+                self.board.board[move] = EMPTY
                 self.respond("illegal move: {} suicide".format(board_move))
                 return
 
-
             self.board.board[move] = EMPTY
-            
+
             if not self.board.play_move(move, color):
                 print(f"Still an illegal move = {move}?", file=sys.stderr)
-                self.respond("illegal move: {}".format(board_move))   # Catching the capture move here right now
+                self.respond("illegal move: {}".format(board_move))
                 return
             else:
                 self.debug_msg(
