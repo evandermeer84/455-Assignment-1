@@ -338,7 +338,7 @@ class GtpConnection:
             # Check for occuupied
             # This checks to see if the move is not in the list of the boards empty points
             if move not in self.board.get_empty_points():
-                self.respond("illegal move: {} occupied".format(board_move))
+                self.respond("illegal move: \"" + board_color + " {}\" occupied".format(board_move))
                 return
 
             # Check for capture
