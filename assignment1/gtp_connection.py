@@ -325,11 +325,11 @@ class GtpConnection:
 
             # Check for player
             if color != self.board.current_player:
-                self.respond("illegal move: {} wrong color".format(board_color))
+                self.respond(f"illegal move: {board_color} wrong color")
                 return
             # Check for pass
             if args[1].lower() == "pass":
-                self.respond("illegal move: \"{} pass\" wrong coordinate".format(board_color))
+                self.respond(f'illegal move: "{board_color} pass" wrong coordinate')
                 return
 
             coord = move_to_coord(args[1], self.board.size)
@@ -338,7 +338,7 @@ class GtpConnection:
             # Check for occuupied
             # This checks to see if the move is not in the list of the boards empty points
             if move not in self.board.get_empty_points():
-                self.respond("illegal move: \"" + board_color + " {}\" occupied".format(board_move))
+                self.respond(f'illegal move: "{board_color } {board_move}" occupied')
                 return
 
             # Check for capture
@@ -349,7 +349,7 @@ class GtpConnection:
                 if self.board.board[nb] == opponent_color:
                     is_capture = self.board._detect_and_process_capture(nb) # detect if a capture would be made
                     if is_capture:
-                        self.respond("illegal move: \"" + board_color + " {}\" capture".format(board_move))
+                        self.respond(f'illegal move: "{board_color} {board_move}" capture')
                         self.board.board[move] = EMPTY
                         return
 
@@ -357,24 +357,21 @@ class GtpConnection:
             # get the opponenet color to compare
             block = self.board._block_of(move)
 
-            if not self.board._has_liberty(block):  # undo suicide move
+            if not self.board._has_liberty(block):
                 self.board.board[move] = EMPTY
-                self.respond("illegal move: {} suicide".format(board_move))
+                self.respond(f'illegal move: "{board_color} {board_move}" suicide')
                 return
 
             self.board.board[move] = EMPTY
 
             if not self.board.play_move(move, color):
-                print(f"Still an illegal move = {move}?", file=sys.stderr)
-                self.respond("illegal move: {}".format(board_move))
+                self.respond(f"illegal move: {board_move}")
                 return
             else:
-                self.debug_msg(
-                    "Move: {}\nBoard:\n{}\n".format(board_move, self.board2d())
-                )
+                self.debug_msg(f'Move: {board_move}\nBoard:\n{self.board2d()}\n')
             self.respond()
         except Exception as e:
-            self.respond("Error: {}".format(str(e)))
+            self.respond(f'Error: {str(e)}')
 
     def genmove_cmd(self, args: List[str]) -> None:
         """ generate a move for color args[0] in {'b','w'} """
@@ -391,7 +388,7 @@ class GtpConnection:
             self.board.play_move(move, color)
             self.respond(move_as_string)
         else:
-            self.respond("illegal move: {}".format(move_as_string))
+            self.respond(f"illegal move: {move_as_string}")
 
     """
     ==========================================================================
@@ -448,9 +445,9 @@ def move_to_coord(point_str: str, board_size: int) -> Tuple[int, int]:
         if row < 1:
             raise ValueError
     except (IndexError, ValueError):
-        raise ValueError("invalid point: '{}'".format(s))
+        raise ValueError(f"invalid point: '{s}'")
     if not (col <= board_size and row <= board_size):
-        raise ValueError("point off board: '{}'".format(s))
+        raise ValueError(f"point off board: '{s}'")
     return row, col
 
 
